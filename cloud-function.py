@@ -6,6 +6,7 @@
 """
 import json
 from google.cloud import firestore
+import requests
 
 db = firestore.Client()
 
@@ -14,7 +15,8 @@ def check_master_branch(payload):
 
 def get_data_from_github(file):
     print('get_data_from_github', file)
-    return json.loads("{}")
+    r = requests.get('https://raw.githubusercontent.com/dhughesni/example-cloud-hooks/master/'+file)
+    return json.loads(r.content)
 
 def process(request):
     """Responds to any HTTP request.
